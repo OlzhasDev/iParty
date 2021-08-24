@@ -14,7 +14,7 @@
  
  import HomeScreen from './src/screens/Home';
  
- /*import { withAuthenticator } from 'aws-amplify-react-native';*/
+ import { withAuthenticator } from 'aws-amplify-react-native';
  
  const App: () => React$Node = () => {
    return (
@@ -24,7 +24,5 @@
      </>
    );
  };
-
- export default App;
  
- /*export default withAuthenticator(App);*/
+ export default withAuthenticator(App);
