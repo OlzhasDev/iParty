@@ -1,0 +1,41 @@
+type Comment @model @key(name: "byParty", fields: ["partyID"]) @auth(rules: [{allow: groups, groups: ["Owner"], operations: [read, create, update, delete]}, {allow: private, operations: [read, create]}]) @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  comment: String!
+  likes: Int!
+  dislikes: Int!
+  partyID: ID
+  User: User @connection
+  Party: Party @connection
+  userID: ID
+}
+
+type Party @model @key(name: "byUser", fields: ["userID"]) @auth(rules: [{allow: private, operations: [create, read]}, {allow: groups, groups: ["Owner"], operations: [read, create, update, delete]}, {allow: owner}]) {
+  id: ID!
+  image: String
+  type: String!
+  title: String!
+  description: String
+  date: AWSDateTime!
+  entryfee: Int
+  age: Int!
+  drinkinking: String
+  User: User @connection
+  Comments: [Comment] @connection(keyName: "byParty", fields: ["id"])
+  latitude: Float!
+  longitude: Float!
+  userID: ID
+}
+
+type User @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: groups, groups: ["Owner"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  name: String!
+  username: String!
+  email: AWSEmail
+  number: AWSPhone
+  image: String
+  friends: Int
+  Parties: [Party] @connection(keyName: "byUser", fields: ["id"])
+  Comments: [Comment] @connection(keyName: "byUser", fields: ["id"])
+  sub: String!
+}
+ 

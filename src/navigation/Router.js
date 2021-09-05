@@ -4,6 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DestinationSearchScreen from "../screens/DestinationSearch";
 import GuestsScreen from "../screens/Guests";
 import EditScreen from "../screens/Profile/edit";
+import AboutUs from "../screens/AboutUs";
+import Support from "../screens/Support";
 
 import HomeTabNavigator from "./HomeTabNavigator";
 import PostScreen from "../screens/PostScreen";
@@ -60,6 +62,22 @@ const Router = (props) => {
           component={EditScreen}
           options={{
             title: "Edit Profile"
+          }}
+        />
+
+        <Stack.Screen
+          name={"AboutUs"}
+          component={AboutUs}
+          options={{
+            title: "About Us"
+          }}
+        />
+
+        <Stack.Screen
+          name={"Support"}
+          component={Support}
+          options={{
+            title: "Support"
           }}
         />
         

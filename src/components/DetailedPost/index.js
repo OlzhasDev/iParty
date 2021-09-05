@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, Text, Image, ScrollView,} from 'react-native';
+import {View, Text, Image, ScrollView} from 'react-native';
 import styles from './styles.js';
+import { Party } from "../../models";
+import { DataStore } from 'aws-amplify';
 
 const Post = (props) => {
 
@@ -15,7 +17,7 @@ const Post = (props) => {
           source={{uri: post.image}}
         />
 
-        {/* date */}
+        {/* date and address*/}
         <Text style={styles.date}>
           Dates: {post.date} 
         </Text>
@@ -32,7 +34,7 @@ const Post = (props) => {
         </Text>
 
         {/*  drinking restrictions */}
-        <Text style={styles.drinking}>{post.drinking} </Text>
+        <Text style={styles.drinkinging}>{post.drinkinging} </Text>
 
         <Text style={styles.longDescription}>
           {post.description}

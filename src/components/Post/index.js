@@ -1,7 +1,11 @@
-import React from 'react';
+
+import React, { useState, useEffect } from "react";
 import {View, Text, Image, Pressable} from 'react-native';
 import styles from './styles.js';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
+import { Party } from "../../models/";
+import { DataStore } from 'aws-amplify';
 
 const Post = (props) => {
 
@@ -21,10 +25,11 @@ const Post = (props) => {
         source={{uri: post.image}}
       />
 
-      {/* date  */}
+      {/* date  address*/}
       <Text style={styles.date}>
-        Dates: {post.date}  
+        Dates: {post.date}
       </Text>
+      
 
       {/* Type & Description */}
       <Text style={styles.description} numberOfLines={2}>
@@ -33,12 +38,12 @@ const Post = (props) => {
 
       {/*  entry fee and age */}
       <Text style={styles.gens}>
-        <Text style={styles.entryFee}>${post.entryFee}/per person |</Text>
+        <Text style={styles.entryfee}>${post.entryfee}/per person |</Text>
         <Text style={styles.gen}> {post.age}+ </Text>
       </Text>
 
       {/*  Drinking restrictions */}
-      <Text style={styles.drinking}>{post.drinking} </Text>
+      <Text style={styles.drinkinking}>{post.drinkinking} </Text>
     </Pressable>
   );
 };

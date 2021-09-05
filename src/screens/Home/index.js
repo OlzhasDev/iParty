@@ -15,12 +15,7 @@ const HomeScreen = (props) => {
         <Fontisto name="search" size={25} color={'blue'} />
         <Text style={styles.searchButtonText}>Search</Text>
       </Pressable>
-
-      <ImageBackground
-        source={require('../../../assets/images/wallpaper.jpg')}
-        style={styles.image}>
-        <Text style={styles.title}>Go Party!</Text>
-      </ImageBackground>
+      
     </View>
   );
 };

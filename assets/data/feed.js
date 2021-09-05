@@ -9,10 +9,8 @@ export default [
     entryFee: 5,
     age: 18,
     drinking: 'Alcohool Free',
-    coordinate: {
-      latitude: 28.3915637,
-      longitude: -16.6291304,
-    },
+    latitude: 28.3915637,
+    longitude: -99.6291304,
   },
   {
     id: '1',
@@ -24,10 +22,8 @@ export default [
     entryFee: 10,
     age: 18,
     drinking: 'Alcohool Free',
-    coordinate: {
-      latitude: 28.4815637,
-      longitude: -16.2291304,
-    },
+    latitude: 28.4815637,
+    longitude: -16.2291304,
   },
   {
     id: '2',
@@ -39,10 +35,8 @@ export default [
     entryFee: 5,
     age: 18,
     drinking: 'Alcohool Free',
-    coordinate: {
-      latitude: 28.2515637,
-      longitude: -16.3991304,
-    },
+    latitude: 28.2515637,
+    longitude: -16.3991304,
   },
   {
     id: '3',
@@ -54,9 +48,7 @@ export default [
     entryFee: 10,
     age: 18,
     drinking: 'Alcohool Free',
-    coordinate: {
-      latitude: 28.4815637,
-      longitude: -16.2991304,
-    },
+    latitude: 28.4815637,
+    longitude: -16.2991304,
   },
 ];

@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, FlatList } from "react-native";
+
+import { DataStore } from "aws-amplify";
+import { Party } from "../../models";
+
 import Post from '../../components/Post';
 
-import feed from '../../../assets/data/feed';
+const SearchResultsScreen = () => {
 
-const SearchResultsScreen = (props) => {
+  const [parties, setParties] = useState([]);
+
+  useEffect(() => {
+    //fetch parties
+    DataStore.query(Party).then(setParties);
+  }, [])
+
   return (
     <View>
       <FlatList
-        data={feed}
+        data={parties}
         renderItem={({item}) => <Post post={item} />}
       />
     </View>

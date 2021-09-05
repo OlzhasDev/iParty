@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   gen: {
     fontWeight: 'bold',
   },
-  drinking: {
+  drinkinking: {
     color: '#5b5b5b',
     textDecorationLine: 'underline',
   }

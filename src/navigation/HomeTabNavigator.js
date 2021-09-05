@@ -1,8 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ExploreNavigator from './ExploreNavigator';
-import HomeScreen from '../screens/Home';
 import ProfileScreen from '../screens/Profile';
+import FeedScreen from '../screens/Feed';
 
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -12,6 +12,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import PostScreen from "../screens/PostScreen";
 import GuestsScreen from '../screens/Guests';
 import SearchResultsMaps from '../screens/SearchResultsMap';
+// import HomeScreen from '../screens/Home';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +31,7 @@ const HomeTabNavigator = (props) => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={'Saved'}
         component={HomeScreen}
         options={{
@@ -38,7 +39,7 @@ const HomeTabNavigator = (props) => {
             <FontAwesome name="heart-o" size={25} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name={'Create a Party'}
         component={GuestsScreen}
@@ -49,8 +50,8 @@ const HomeTabNavigator = (props) => {
         }}
       />
       <Tab.Screen
-        name={'Explore'}
-        component={SearchResultsMaps}
+        name={'Feed'}
+        component={FeedScreen}
         options={{
           tabBarIcon: ({color}) => (
             <Fontisto name="search" size={25} color={color} />

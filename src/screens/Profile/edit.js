@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import {
   View,
@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TextInput,
   StyleSheet,
+  Alert,
 } from 'react-native';
 
 import {useTheme} from 'react-native-paper';
@@ -16,17 +17,75 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-
-
-
-
-
+import {User} from '../../models/';
+import { Auth, DataStore } from 'aws-amplify';
 
 
 const EditScreen = () => {
+const [user, setUser] = useState(null);
+const [name, setName] = useState('');
+const [username, setUsername] = useState('');
+const [number, setNumber] = useState('');
+const [email, setEmail] = useState('');
 
-const [image, setImage] = useState('https://reactjs.org/logo-og.png');
+useEffect(() => {
+  const getCurrentUser=async() => {
+    
+    const user = await Auth.currentAuthenticatedUser();
+    const dbUsers = await DataStore.query(User, u => u.sub === user.attributes.sub,); 
+    if (dbUsers.length < 0) {
+      return;
+    }
+    const dbUser = dbUsers[0];
+    setUser(dbUser);
+    setName(dbUser.name);
+    setUsername(dbUser.username);
+    setImage(dbUser.image);
+    setNumber(dbUser.number);
+    setEmail(dbUser.email);
+  };
+  getCurrentUser();
+}, []);
+
+const isValid = () => {
+  return name && username && image && number && email;
+};
+
+const save = async () => {
+  if (!isValid()) {
+    console.warn('Not Valid');
+    return;
+  }
+
+  if(user) {
+    const updatedUser = User.copyOf(user, updated => {
+    updated.name = name;
+    updated.username = username;
+    updated.image = image;
+    updated.number = number;
+    updated.email = email;
+    });
+
+    await DataStore.save(updatedUser);
+  } else{
+    // create a new user
+  const authUser = await Auth.currentAuthenticatedUser();
+
+  const newUser = new User({
+    sub: authUser.attributes.sub,
+    name,
+    username,
+    image,
+    number,
+    email,
+  });
+  await DataStore.save(newUser);
+  }
+  Alert.alert('User saved successfully')
+};
+
 const {colors} = useTheme();
+const [image, setImage] = useState('https://reactjs.org/logo-og.png');
 
 const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -142,6 +201,8 @@ return (
                 <TextInput
                     placeholder="Username"
                     placeholderTextColor="black"
+                    value={username}
+                    onChangeText={setUsername}
                     autoCorrect={false}
                     style={[styles.textInput, {
                         color: colors.text
@@ -152,16 +213,8 @@ return (
                 <TextInput
                     placeholder="First Name"
                     placeholderTextColor="black"
-                    autoCorrect={false}
-                    style={[styles.textInput, {
-                        color: colors.text
-                    }]}/>
-            </View>
-            <View style={styles.action}>
-                <FontAwesome name="user-o" color={colors.text} size={20}/>
-                <TextInput
-                    placeholder="Last Name"
-                    placeholderTextColor="black"
+                    value={name}
+                    onChangeText={setName}
                     autoCorrect={false}
                     style={[styles.textInput, {
                         color: colors.text
@@ -173,16 +226,8 @@ return (
                     placeholder="Email"
                     placeholderTextColor="black"
                     keyboardType='email-address'
-                    autoCorrect={false}
-                    style={[styles.textInput, {
-                        color: colors.text
-                    }]}/>
-            </View>
-            <View style={styles.action}>
-                <FontAwesome name="globe" color={colors.text} size={20}/>
-                <TextInput
-                    placeholder="Country"
-                    placeholderTextColor="black"
+                    value={email}
+                    onChangeText={setEmail}
                     autoCorrect={false}
                     style={[styles.textInput, {
                         color: colors.text
@@ -194,13 +239,15 @@ return (
                     placeholder="Phone Number"
                     placeholderTextColor="black"
                     keyboardType='number-pad'
+                    value={number}
+                    onChangeText={setNumber}
                     autoCorrect={false}
                     style={[styles.textInput, {
                         color: colors.text
                     }]}/>
             </View>
-            <TouchableOpacity style={styles.commandButton} onPress={() =>{}}>
-                    <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold',}}>Save</Text>
+            <TouchableOpacity style={styles.commandButton} onPress={save}>
+                    <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>Save</Text>
             </TouchableOpacity>
         </Animated.View>
     </View>
@@ -227,11 +274,14 @@ const styles = StyleSheet.create({
         color: '#05375a',
       },
       commandButton: {
-        padding: 15,
+        width: 333,
+        padding: 20,
         borderRadius: 10,
         backgroundColor: 'blue',
         alignItems: 'center',
-        marginTop: 220,
+        marginTop: 600,
+        position: 'absolute',
+        marginLeft: 10,
       },
       header: {
         backgroundColor: '#FFFFFF',

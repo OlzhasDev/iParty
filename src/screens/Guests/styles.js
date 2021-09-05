@@ -17,6 +17,37 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderBottomWidth: 1,
     borderColor: 'lightgrey',
+  },
+  action: {
+    flexDirection: 'row',
+      marginTop: 10,
+      marginBottom: 10,
+  },
+  panelTitle: {
+    fontSize: 27,
+    height: 35,
+  },
+  panelSubtitle: {
+    fontSize: 14,
+    color: 'gray',
+    height: 30,
+    marginBottom: 10,
+  },
+  panelButtonTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: 'blue',
+    alignItems: 'center',
+    marginVertical: 7,
+  },
+  action: {
+    fontSize: 8,
+    lineHeight: 6,
   }
 });
 

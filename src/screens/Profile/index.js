@@ -1,18 +1,34 @@
-import React from "react";
-import { View, Pressable, Text, SafeAreaView, StyleSheet, ActivityIndicatorBase } from "react-native";
+import React, {useState, useEffect } from "react";
+import { View, Pressable, Text, SafeAreaView, StyleSheet, ActivityIndicatorBase, FlatList } from "react-native";
 import { Auth } from 'aws-amplify';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import { Avatar, Title, Caption, TouchableRipple, } from "react-native-paper";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Share from 'react-native-share';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+
+import { DataStore } from "aws-amplify";
+import { User } from "../../models/";
 
 const ProfileScreen = (props) => {
+
+
+
+  const post = props.post;
+
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    //fetch user
+    DataStore.query(User).then(setUser);
+  }, [])
 
   const navigation = useNavigation();
   const logout = () => {
     Auth.signOut();
   }
+
 
   
   return (
@@ -29,72 +45,54 @@ const ProfileScreen = (props) => {
             <Title style={[styles.title, {
               marginTop:15,
               marginBottom:5,
-              }]}>test</Title> 
-              <Caption style={styles.caption}>@test</Caption>
+              }]}>Olzhas Satpayev</Title> 
+              <Caption style={styles.caption}>0 friends</Caption>
           </View>
         </View>
       </View>
 
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
-          <Icon name="map-marker-radius" color="grey" size={20}/>
-          <Text style={{color:"grey", marginLeft: 20}}>Almaty,Kazakhstan</Text>
-        </View>
-        <View style={styles.row}>
           <Icon name="phone" color="grey" size={20}/>
-          <Text style={{color:"grey", marginLeft: 20}}>+1-123123123</Text>
+          <Text style={{color:"grey", marginLeft: 20}}>+7-705-717-21-81</Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="grey" size={20}/>
-          <Text style={{color:"grey", marginLeft: 20}}>test@gmail.com</Text>
+          <Text style={{color:"grey", marginLeft: 20}}>mosalat10@gmail.com</Text>
         </View>
       </View>
 
       <View style={styles.menuWrapper}>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name = "heart-outline" color="blue" size={25}/>
+          <Fontisto name="heart-alt" size={25} color={'blue'} />
             <Text style={styles.menuItemText}>Your Parties</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => navigation.navigate('Home', {
-            screen: 'Explore',
-            params: {
-              screen: 'SearchResults',
-            },
-          })}>
+        <TouchableRipple 
+        onPress={() => navigation.navigate('AboutUs')}>
           <View style={styles.menuItem}>
-            <Icon name = "account-check-outline" color="blue" size={25}/>
+          <Fontisto name="persons" size={25} color={'blue'} />
             <Text style={styles.menuItemText}>About Us</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => navigation.navigate('Support')}>
           <View style={styles.menuItem}>
-            <Icon name = "account-check-outline" color="blue" size={25}/>
+          <Fontisto name="comments" size={25} color={'blue'} />
             <Text style={styles.menuItemText}>Support</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple 
         onPress={() => navigation.navigate('Edit')}>
           <View style={styles.menuItem}>
-            <Icon name = "settings-outline" color="blue" size={25}/>
+          <Fontisto name="player-settings" size={25} color={'blue'} />
             <Text style={styles.menuItemText}>Settings</Text>
           </View>
         </TouchableRipple>
       </View>
 
-      <View style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <Pressable
-        onPress={logout}
-        style={{
-        width: '90%',
-        height: 40,
-        backgroundColor: 'blue',
-        justifyContent: 'center', alignItems: 'center',
-        borderRadius: 15,
-        marginBottom: 300,
-        marginHorizontal: 20,
-      }}>
+      <View style={styles.commandButton}>
+      <Pressable onPress={logout}>
         <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>
           Log Out
         </Text>

@@ -1,22 +1,22 @@
 export default [
     {
       id: '0',
-      description: 'Tenerife, Canary Islands',
+      name: 'Tenerife, Canary Islands',
     },
     {
       id: '1',
-      description: 'Tenerife, Santa Cruz de Tenerife',
+      name: 'Tenerife, Santa Cruz de Tenerife',
     },
     {
       id: '2',
-      description: 'Tenerife, El Medano',
+      name: 'Tenerife, El Medano',
     },
     {
       id: '3',
-      description: 'Tenerife, Costa Adeje',
+      name: 'Tenerife, Costa Adeje',
     },
     {
       id: '4',
-      description: 'Tenerife, Puerto de la Cruz',
+      name: 'Tenerife, Puerto de la Cruz',
     },
   ];

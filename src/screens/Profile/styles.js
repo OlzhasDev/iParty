@@ -36,6 +36,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 26,
       },
+      commandButton: {
+        width: 333,
+        padding: 20,
+        borderRadius: 10,
+        backgroundColor: 'blue',
+        alignItems: 'center',
+        marginTop: 680,
+        marginLeft: 30,
+        position: 'absolute',
+      },
 });
 
 export default styles;

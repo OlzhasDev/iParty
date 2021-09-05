@@ -1,19 +1,27 @@
-import React from "react";
-import { View, Text } from "react-native";
-import DetailedPost from '../../components/DetailedPost';
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList } from "react-native";
 import {useRoute} from '@react-navigation/native';
 
-import places from '../../../assets/data/feed';
+import { DataStore } from "aws-amplify";
+import { Party } from "../../models";
 
-
+import DetailedPost from '../../components/DetailedPost';
 const PostScreen = (props) => {
   const route = useRoute();
 
-  const post = places.find(place => place.id === route.params.postId);
+  const [parties, setParties] = useState([]);
+
+  useEffect(() => {
+    //fetch parties
+    DataStore.query(Party).then(setParties);
+  }, [])
 
   return (
-    <View style={{backgroundColor: 'white'}}>
-      <DetailedPost post={post} />
+    <View>
+      <FlatList
+        data={parties}
+        renderItem={({item}) => <DetailedPost post={item} />}
+      />
     </View>
   );
 };
