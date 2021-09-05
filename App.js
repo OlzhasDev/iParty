@@ -18,9 +18,12 @@
  import HomeScreen from './src/screens/Home';
  
  import { withAuthenticator } from 'aws-amplify-react-native';
+<<<<<<< HEAD
 // import { User } from "./src/models"
 
  navigator.geolocation = require('@react-native-community/geolocation');
+=======
+>>>>>>> a879b1fcfd6797fbd286af49525695f72b5d4f5a
  
  const App: () => React$Node = () => {
 
@@ -96,5 +99,10 @@
      </>
    );
  };
+<<<<<<< HEAD
 
  export default withAuthenticator(App);
+=======
+ 
+ export default withAuthenticator(App);
+>>>>>>> a879b1fcfd6797fbd286af49525695f72b5d4f5a
